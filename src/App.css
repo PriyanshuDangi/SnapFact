@@ -492,6 +492,8 @@ body {
   max-height: 90vh;
   overflow: hidden;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 }
 
 .webcam-header {
@@ -501,6 +503,7 @@ body {
   padding: 1.5rem;
   border-bottom: 1px solid #e0e0e0;
   background: #f8f9fa;
+  flex-shrink: 0;
 }
 
 .webcam-header h3 {
@@ -515,12 +518,14 @@ body {
   border: none;
   color: #666;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 50%;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .close-btn:hover {
@@ -533,12 +538,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .webcam-video {
   width: 100%;
   border-radius: 12px;
   background: #000;
+  max-height: 400px;
+  object-fit: cover;
 }
 
 .captured-image {
@@ -553,6 +562,8 @@ body {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .capture-btn {
@@ -560,7 +571,37 @@ body {
   color: white;
   border: none;
   border-radius: 50px;
-  padding: 1rem 2rem;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 160px;
+  min-height: 56px;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.capture-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.capture-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px rgba(102, 126, 234, 0.3);
+}
+
+.retake-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 1.8rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -569,29 +610,10 @@ body {
   align-items: center;
   gap: 0.5rem;
   min-width: 140px;
+  min-height: 50px;
   justify-content: center;
-}
-
-.capture-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-.retake-btn {
-  background: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 120px;
-  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .retake-btn:hover {
@@ -599,26 +621,38 @@ body {
   transform: translateY(-2px);
 }
 
+.retake-btn:active {
+  transform: translateY(0);
+}
+
 .use-photo-btn {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
   border: none;
   border-radius: 50px;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
+  padding: 1rem 1.8rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 120px;
+  min-width: 140px;
+  min-height: 50px;
   justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .use-photo-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+}
+
+.use-photo-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px rgba(40, 167, 69, 0.3);
 }
 
 /* Responsive Design */
@@ -663,26 +697,58 @@ body {
     padding: 0.5rem;
   }
   
+  .webcam-container {
+    max-height: 95vh;
+  }
+  
   .webcam-header {
-    padding: 1rem;
+    padding: 1rem 1.5rem;
   }
   
   .webcam-header h3 {
     font-size: 1.25rem;
   }
   
+  .close-btn {
+    padding: 0.75rem;
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
   .webcam-content {
-    padding: 1rem;
+    padding: 1rem 1.5rem 1.5rem;
+    gap: 1.25rem;
+  }
+  
+  .webcam-video {
+    max-height: 300px;
+  }
+  
+  .captured-image {
+    max-height: 300px;
   }
   
   .webcam-controls {
     flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
   }
   
-  .capture-btn,
+  .capture-btn {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    min-height: 64px;
+    border-radius: 16px;
+  }
+  
   .retake-btn,
   .use-photo-btn {
     width: 100%;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    min-height: 56px;
+    border-radius: 14px;
   }
 }
 
@@ -714,13 +780,52 @@ body {
   
   .webcam-container {
     border-radius: 15px;
+    max-height: 98vh;
   }
   
   .webcam-header {
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .webcam-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .close-btn {
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
   }
   
   .webcam-content {
-    padding: 0.75rem;
+    padding: 0.75rem 1rem 1rem;
+    gap: 1rem;
+  }
+  
+  .webcam-video {
+    max-height: 250px;
+    border-radius: 8px;
+  }
+  
+  .captured-image {
+    max-height: 250px;
+    border-radius: 8px;
+  }
+  
+  .capture-btn {
+    padding: 1.75rem 1.5rem;
+    font-size: 1.3rem;
+    min-height: 70px;
+    border-radius: 18px;
+    gap: 1rem;
+  }
+  
+  .retake-btn,
+  .use-photo-btn {
+    padding: 1.5rem 1.5rem;
+    font-size: 1.2rem;
+    min-height: 60px;
+    border-radius: 16px;
+    gap: 0.75rem;
   }
 } 
