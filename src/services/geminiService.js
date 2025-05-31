@@ -63,25 +63,17 @@ export const analyzeImage = async (imageFile) => {
 
 // 🌍 **Context:** [Any relevant context about the scene]`;
 
-const prompt = `Analyze the uploaded image and identify the main subject or object. Based on what is recognized, classify it under the most suitable category from the list below (choose only one).
+const prompt = `Analyze this image and provide direct facts about what you see. Focus on the main object identified , give 2-3 interesting facts based on these categories (only provide for one category):
 
-Then provide 2–3 useful, real-world facts that someone might want to know if they came across this in everyday life. Prioritize practical, surprising, or insightful info, not generic trivia.
-
-Categories & Expectations:
-🍽 Food & Beverages – Show calories, macronutrients, common allergens, benefits or downsides, origin, and cultural usage.
-🌿 Plants & Nature – Include scientific name, whether it's edible or medicinal, its environmental role, and if it's protected or invasive.
-🏛 Architecture & Landmarks – Give unique historical facts, architectural style, construction era, hidden symbolism, or fun visitor facts.
-🐾 Animals – Include species name, behavior, habitat, whether it's endangered, and any interesting adaptations.
-🚗 Vehicles & Tech – Provide make & model (if possible), horsepower/performance, tech innovation, and popularity or rarity.
-👥 People & Fashion – Identify the fashion style or cultural dress, its origin, when it's typically worn, and any social or historical meaning.
-🎨 Art & Objects – State medium (e.g. oil, sculpture), time period, style or movement, and its significance or creator.
-
-🧠 Guidelines:
-Keep it concise, factual, and directly useful
-
-Avoid surface-level or obvious info — prefer "things you'd point out to a friend"
-
-Don’t explain everything — make it snappy and scroll-worthy`;
+🍽 *Food & Beverages*: Nutritional info, origin, health benefits, brand significance
+🌿 *Plants & Nature*: Scientific classification, ecological role, unique features, conservation status  
+🏛 *Architecture & Landmarks*: Historical significance, architectural style, construction facts
+🐾 *Animals*: Species info, behavior, habitat, conservation status, adaptations
+🚗 *Technology*: Specifications, innovation history, performance, market impact
+👥 *People & Fashion*: Style identification, cultural context, trends
+🎨 *Art & Objects*: Medium, technique, historical context, significance
+*Others*: If you see something that doesn't fit into the above categories, provide a fact about it(try to have something historic or interesting)
+Keep it concise and factual - no lengthy explanations or unnecessary structure.`;
 
     // Generate content with the image and prompt
     const result = await model.generateContent([prompt, imagePart]);
