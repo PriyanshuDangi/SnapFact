@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Camera, Upload, Sparkles, Loader2, AlertCircle } from 'lucide-react';
+import React, { useState, useRef, useCallback } from 'react';
+import { Camera, Upload, Sparkles, Loader2, AlertCircle, X, RotateCcw } from 'lucide-react';
+import Webcam from 'react-webcam';
 import { analyzeImage } from './services/geminiService';
 import './App.css';
 
@@ -9,8 +10,10 @@ function App() {
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
   const fileInputRef = useRef(null);
-  const cameraInputRef = useRef(null);
+  const webcamRef = useRef(null);
 
   const handleImageSelect = (event) => {
     const file = event.target.files[0];
@@ -20,6 +23,37 @@ function App() {
       setAnalysis(null);
       setError(null);
     }
+  };
+
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+  }, [webcamRef]);
+
+  const handleCapturedImageUpload = () => {
+    if (capturedImage) {
+      // Convert base64 to blob
+      fetch(capturedImage)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File([blob], 'captured-image.jpg', { type: 'image/jpeg' });
+          setSelectedImage(file);
+          setImagePreview(capturedImage);
+          setAnalysis(null);
+          setError(null);
+          setShowWebcam(false);
+          setCapturedImage(null);
+        });
+    }
+  };
+
+  const retakePhoto = () => {
+    setCapturedImage(null);
+  };
+
+  const closeWebcam = () => {
+    setShowWebcam(false);
+    setCapturedImage(null);
   };
 
   const handleAnalyze = async () => {
@@ -43,8 +77,9 @@ function App() {
     setImagePreview(null);
     setAnalysis(null);
     setError(null);
+    setShowWebcam(false);
+    setCapturedImage(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
-    if (cameraInputRef.current) cameraInputRef.current.value = '';
   };
 
   return (
@@ -79,7 +114,7 @@ function App() {
                   
                   <button 
                     className="upload-btn secondary"
-                    onClick={() => cameraInputRef.current?.click()}
+                    onClick={() => setShowWebcam(true)}
                   >
                     <Camera size={20} />
                     Take Photo
@@ -92,15 +127,6 @@ function App() {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={handleImageSelect}
-              style={{ display: 'none' }}
-            />
-            
-            <input
-              ref={cameraInputRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
               onChange={handleImageSelect}
               style={{ display: 'none' }}
             />
@@ -156,6 +182,58 @@ function App() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Webcam Modal */}
+        {showWebcam && (
+          <div className="webcam-modal">
+            <div className="webcam-container">
+              <div className="webcam-header">
+                <h3>Take a Photo</h3>
+                <button className="close-btn" onClick={closeWebcam}>
+                  <X size={24} />
+                </button>
+              </div>
+              
+              <div className="webcam-content">
+                {!capturedImage ? (
+                  <>
+                    <Webcam
+                      audio={false}
+                      ref={webcamRef}
+                      screenshotFormat="image/jpeg"
+                      className="webcam-video"
+                      videoConstraints={{
+                        width: 1280,
+                        height: 720,
+                        facingMode: "environment"
+                      }}
+                    />
+                    <div className="webcam-controls">
+                      <button className="capture-btn" onClick={capture}>
+                        <Camera size={24} />
+                        Capture
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img src={capturedImage} alt="Captured" className="captured-image" />
+                    <div className="webcam-controls">
+                      <button className="retake-btn" onClick={retakePhoto}>
+                        <RotateCcw size={20} />
+                        Retake
+                      </button>
+                      <button className="use-photo-btn" onClick={handleCapturedImageUpload}>
+                        <Upload size={20} />
+                        Use Photo
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </main>
