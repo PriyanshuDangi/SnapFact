@@ -34,6 +34,7 @@ SnapFact is a modern React web application that uses Google Gemini AI to detect 
    ```bash
    npm install
    npm install react-webcam
+   npm install react-markdown
    ```
 
 3. **Set up your API key**
@@ -83,6 +84,7 @@ REACT_APP_GEMINI_API_KEY=your_actual_gemini_api_key_here
 
 - **React 18** - Modern React with hooks
 - **React Webcam** - Camera integration with live preview and capture
+- **React Markdown** - Beautiful markdown rendering for AI analysis results
 - **Google Gemini AI** - Advanced multimodal AI for image analysis
 - **Lucide React** - Beautiful, customizable icons
 - **CSS3** - Modern styling with gradients and animations

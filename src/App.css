@@ -353,6 +353,108 @@ body {
   color: #333;
 }
 
+/* Markdown Styles */
+.analysis-text h1,
+.analysis-text h2,
+.analysis-text h3,
+.analysis-text h4,
+.analysis-text h5,
+.analysis-text h6 {
+  color: #333;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.analysis-text h1 {
+  font-size: 1.8rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+.analysis-text h2 {
+  font-size: 1.5rem;
+  color: #667eea;
+}
+
+.analysis-text h3 {
+  font-size: 1.3rem;
+  color: #764ba2;
+}
+
+.analysis-text h4 {
+  font-size: 1.1rem;
+}
+
+.analysis-text ul,
+.analysis-text ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.analysis-text li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+
+.analysis-text blockquote {
+  border-left: 4px solid #667eea;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.analysis-text code {
+  background: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #e83e8c;
+}
+
+.analysis-text pre {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid #e9ecef;
+}
+
+.analysis-text pre code {
+  background: none;
+  padding: 0;
+  color: #333;
+}
+
+.analysis-text table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.analysis-text th,
+.analysis-text td {
+  border: 1px solid #e9ecef;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.analysis-text th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.analysis-text hr {
+  border: none;
+  border-top: 2px solid #e9ecef;
+  margin: 2rem 0;
+}
+
 /* Footer */
 .app-footer {
   background: rgba(255, 255, 255, 0.1);

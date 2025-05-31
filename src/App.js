@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Camera, Upload, Sparkles, Loader2, AlertCircle, X, RotateCcw } from 'lucide-react';
 import Webcam from 'react-webcam';
+import ReactMarkdown from 'react-markdown';
 import { analyzeImage } from './services/geminiService';
 import './App.css';
 
@@ -175,9 +176,7 @@ function App() {
                 <div className="results-content">
                   <h3>🔍 Object Detection Results</h3>
                   <div className="analysis-text">
-                    {analysis.split('\n').map((line, index) => (
-                      <p key={index}>{line}</p>
-                    ))}
+                    <ReactMarkdown>{analysis}</ReactMarkdown>
                   </div>
                 </div>
               </div>
@@ -238,9 +237,9 @@ function App() {
         )}
       </main>
 
-      <footer className="app-footer">
+      {/* <footer className="app-footer">
         <p>Powered by Google Gemini AI</p>
-      </footer>
+      </footer> */}
     </div>
   );
 }
